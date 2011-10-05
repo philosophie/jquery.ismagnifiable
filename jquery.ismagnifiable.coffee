@@ -12,8 +12,7 @@ $.fn.isMagnifiable = (set_options) ->
   options = $.extend({}, defaults, set_options);
   
   $(@).each ->
-
-    # will be either $(this) or options
+    
     $elem = $(@)
 
     fullImgSrc = $elem.attr 'href'
@@ -103,12 +102,12 @@ $.fn.isMagnifiable = (set_options) ->
       # show glass on mouseover
       $thumb.bind 'mouseover', (e) ->
         console.log 'mouseover'
-        $full.fadeIn()
+        $full.fadeIn 500
 
       # hide glass on mouseout
       $thumb.bind 'mouseout', (e) ->
         console.log 'mouseout'
-        $full.fadeOut()
+        $full.fadeOut 200
   
 
     

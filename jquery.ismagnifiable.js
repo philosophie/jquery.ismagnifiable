@@ -72,11 +72,11 @@
         });
         $thumb.bind('mouseover', function(e) {
           console.log('mouseover');
-          return $full.fadeIn();
+          return $full.fadeIn(500);
         });
         return $thumb.bind('mouseout', function(e) {
           console.log('mouseout');
-          return $full.fadeOut();
+          return $full.fadeOut(200);
         });
       });
     });
