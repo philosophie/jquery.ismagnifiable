@@ -18,6 +18,29 @@ $.fn.isMagnifiable = (set_options) ->
     fullImgSrc = $elem.attr 'href'
 
     $thumb = $elem.find('img')
+    
+    # get dimensions of thumb
+    thumbW = $thumb.width()
+    thumbH = $thumb.height()
+    
+    # wrap $elem in div
+    $wrapper = $('<div class="ismagnifiable_wrapper">')
+    $wrapper.css
+      position: 'relative'
+    $wrapper.width(thumbW).height(thumbH)
+    $elem.wrap $wrapper
+    
+    # build a cover layer above the thumb
+    $cover = $('<div class="ismagnifiable_cover">')
+    $cover.css
+      position: 'absolute'
+      left: 0
+      top: 0
+      zIndex: 500
+      backgroundColor: 'white'
+      opacity: 0
+    $cover.width(thumbW).height(thumbH)
+    $elem.before $cover
 
     # Fetch full size image
     $fullImg = $('<img>')
@@ -31,15 +54,13 @@ $.fn.isMagnifiable = (set_options) ->
       fullH = $fullImg.height()
       $fullImg.remove()
   
-      # get dimensions of thumb
-      thumbW = $thumb.width()
-      thumbH = $thumb.height()
-  
       # change some css on $elem
       $elem.css
-        position: 'relative',
-        zIndex: 1,
-        cursor: 'default',
+        position: 'absolute'
+        top: 0
+        left: 0
+        zIndex: 1
+        cursor: 'default'
         display: 'inline-block'
   
       $elem.click ->
@@ -67,19 +88,15 @@ $.fn.isMagnifiable = (set_options) ->
       # prepend magnifying glass to $elem
       $elem.prepend $full
 
-      console.log 'fullImg', $fullImg, $fullImg.width(), $fullImg.height()
-      console.log 'thumb', $thumb.width(), $thumb.height()
-      console.log 'full', $full.width(), $full.height()
-
       # Get multiple of thumb dimensions to full dimensions
       xMult = fullW / thumbW
       yMult = fullH / thumbH
 
   
-      $thumb.bind 'mousemove', (e) ->
-  
-        cursorX = e.layerX
-        cursorY = e.layerY
+      $cover.bind 'mousemove', (e) ->
+        
+        cursorX = e.offsetX || e.layerX
+        cursorY = e.offsetY || e.layerY
 
         # determine glass position
         glassX = cursorX - (options.glassWidth / 2)
@@ -100,13 +117,11 @@ $.fn.isMagnifiable = (set_options) ->
 
 
       # show glass on mouseover
-      $thumb.bind 'mouseover', (e) ->
-        console.log 'mouseover'
+      $cover.bind 'mouseover', (e) ->
         $full.fadeIn 500
 
       # hide glass on mouseout
-      $thumb.bind 'mouseout', (e) ->
-        console.log 'mouseout'
+      $cover.bind 'mouseout', (e) ->
         $full.fadeOut 200
   
 
