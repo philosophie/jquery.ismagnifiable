@@ -39,6 +39,7 @@ $.fn.isMagnifiable = (set_options) ->
       zIndex: 500
       backgroundColor: 'white'
       opacity: 0
+      cursor: 'none'
     $cover.width(thumbW).height(thumbH)
     $elem.before $cover
 
@@ -70,18 +71,17 @@ $.fn.isMagnifiable = (set_options) ->
       # and set img as background of magnifying glass div
       $full = $('<div>')
       $full.css
-        borderRadius: '500px',
-        border: '3px solid #000',
-        width: options.glassWidth,
-        height: options.glassHeight,
-        overflow: 'hidden',
-        boxShadow: 'rgba(0,0,0,0.5) 2px 2px 5px',
-        background: "url(#{fullImgSrc}) no-repeat",
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        zIndex: 2,
-        pointerEvents: 'none'
+        borderRadius: '500px'
+        border: '3px solid #000'
+        width: options.glassWidth
+        height: options.glassHeight
+        overflow: 'hidden'
+        boxShadow: 'rgba(0,0,0,0.5) 2px 2px 5px'
+        background: "url(#{fullImgSrc}) no-repeat"
+        position: 'absolute'
+        top: 0
+        left: 0
+        zIndex: 2
   
       $full.hide()
   
